@@ -6,7 +6,7 @@ servers:
   - url: https://{hostname}/api
     variables:
       hostname:
-        default: north-manly-squash.herokuapp
+        default: north-manly-squash.herokuapp.com
 tags:
   - name: admin
     description: |
@@ -45,7 +45,7 @@ components:
             $ref: "#/components/schemas/EventModel"
 
     EventModel:
-        $ref: 'schemas/event.yml'
+      $ref: "schemas/event.yml"
 
   responses:
     # API Gateway does not support response definitions here for '200' responses
