@@ -1,0 +1,64 @@
+openapi: "3.0.0"
+info:
+  title: "North Manly Squash API"
+  version: "1.0.0"
+servers:
+  - url: https://{hostname}/api
+    variables:
+      hostname:
+        default: north-manly-squash.herokuapp
+tags:
+  - name: admin
+    description: |
+      The series of APIs for admin use
+
+  - name: event
+    description: |
+      The series of APIs for events
+
+paths:
+  /event:
+    get:
+      operationId: GetEvents
+      tags: [event]
+      summary: Get all open events
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetEventsResponseModel"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+components:
+  schemas:
+    GetEventsResponseModel:
+      description: "Address suggestions"
+      type: "object"
+      required: [events]
+      properties:
+        events:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/EventModel"
+
+    EventModel:
+        $ref: 'schemas/event.yml'
+
+  responses:
+    # API Gateway does not support response definitions here for '200' responses
+    # It ignores error (non-200) responses
+    ErrorInternal:
+      $ref: "schemas/common_models.yml#/responses/ErrorInternal"
+    ErrorUnauthenticated:
+      $ref: "schemas/common_models.yml#/responses/ErrorUnauthenticated"
+    ErrorUnauthorised:
+      $ref: "schemas/common_models.yml#/responses/ErrorUnauthorised"
+    ErrorNotFound:
+      $ref: "schemas/common_models.yml#/responses/ErrorNotFound"
+    ErrorBadRequest:
+      $ref: "schemas/common_models.yml#/responses/ErrorBadRequest"
+    ErrorConflict:
+      $ref: "schemas/common_models.yml#/responses/ErrorConflict"

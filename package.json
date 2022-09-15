@@ -1,0 +1,22 @@
+{
+  "name": "north-manly-squash-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/north-manly-squash-interfaces.cjs.js",
+  "module": "dist/north-manly-squash-interfaces.esm.js",
+  "types": "dist/north-manly-squash-interfaces.cjs.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npx openapi-typescript-codegen -c fetch --output src -i api.yml --useOptions --useUnionTypes"
+  },
+  "author": "Guillaume Pitot",
+  "license": "ISC",
+  "preconstruct": {
+    "entrypoints": [
+      "index.ts"
+    ]
+  }
+}
