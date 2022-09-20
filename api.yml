@@ -16,6 +16,10 @@ tags:
     description: |
       The series of APIs for events
 
+  - name: user
+    description: |
+      The series of APIs for users
+
 paths:
   /event:
     get:
@@ -32,10 +36,158 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
+  /event/{id}:
+    get:
+      operationId: GetEventByID
+      tags: [event]
+      summary: Get event by ID
+      parameters:
+        - in: path
+          schema: { type: string }
+          name: id
+          required: true
+          description: The event id to look up
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetEventByIDResponseModel"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+    patch:
+      operationId: PatchEventByID
+      tags: [event]
+      summary: Patch event by ID
+      responses:
+        "204":
+          description: "successful response"
+        "403":
+          $ref: "#/components/responses/ErrorUnauthorised"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+    post:
+      operationId: PostEventByID
+      tags: [event]
+      summary: Post event by ID
+      responses:
+        "204":
+          description: "successful response"
+        "403":
+          $ref: "#/components/responses/ErrorUnauthorised"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+  /user/me:
+    get:
+      operationId: GetUserMe
+      tags: [user]
+      summary: Get current user details
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetUserMeResponseModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+  /user/{id}:
+    get:
+      operationId: GetUserByID
+      tags: [user]
+      summary: Get specific user details
+      parameters:
+        - in: path
+          schema: { type: string }
+          name: id
+          required: true
+          description: The user id to look up
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetUserByIDResponseModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+  /user/refresh:
+    get:
+      operationId: GetUserRefresh
+      tags: [user]
+      summary: Get current user details
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetUserMeRefreshModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+  /user/login:
+    post:
+      operationId: PostUserLogin
+      tags: [user]
+      summary: User login
+      requestBody:
+        description: User login details
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserLoginModel"
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetUserMeRefreshModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+  /user/create:
+    post:
+      operationId: PostUserCreate
+      tags: [user]
+      summary: User create
+      requestBody:
+        description: User create account
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreateModel"
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GetUserMeRefreshModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
 components:
   schemas:
     GetEventsResponseModel:
-      description: "Address suggestions"
+      description: "Array of events"
       type: "object"
       required: [events]
       properties:
@@ -44,8 +196,45 @@ components:
           items:
             $ref: "#/components/schemas/EventModel"
 
+    GetEventByIDResponseModel:
+      description: "Event"
+      type: "object"
+      $ref: "#/components/schemas/EventModel"
+
+    GetUserMeResponseModel:
+      description: "UserMe"
+      type: "object"
+      $ref: "#/components/schemas/UserModel"
+
+    GetUserByIDResponseModel:
+      description: "UserByID"
+      type: "object"
+      $ref: "#/components/schemas/UserWithoutPasswordModel"
+
+    GetUserMeRefreshModel:
+      description: "UserRefresh"
+      type: "object"
+      properties:
+        accessToken:
+          description: Authentication token
+          type: string
+        user:
+          $ref: "#/components/schemas/UserWithoutPasswordModel"
+
     EventModel:
       $ref: "schemas/event.yml"
+
+    UserModel:
+      $ref: "schemas/user/user.yml"
+
+    UserWithoutPasswordModel:
+      $ref: "schemas/user/user_without_password.yml"
+
+    UserLoginModel:
+      $ref: "schemas/user/user_login.yml"
+
+    UserCreateModel:
+      $ref: "schemas/user/user_create.yml"
 
   responses:
     # API Gateway does not support response definitions here for '200' responses

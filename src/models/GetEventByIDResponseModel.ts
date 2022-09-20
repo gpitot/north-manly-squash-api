@@ -5,9 +5,6 @@
 import type { EventModel } from './EventModel';
 
 /**
- * Array of events
+ * Event
  */
-export type GetEventsResponseModel = {
-    events: Array<EventModel>;
-};
-
+export type GetEventByIDResponseModel = EventModel;

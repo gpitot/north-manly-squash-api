@@ -1,0 +1,20 @@
+title: "User create"
+type: object
+description: A user create
+required: [email, firstname, lastname, phone, password]
+properties:
+  email:
+    description: Email of user
+    type: string
+  firstname:
+    description: Firstname of user
+    type: string
+  lastname:
+    description: Lastname of user
+    type: string
+  phone:
+    description: Phone of user
+    type: string
+  password:
+    description: Password of user
+    type: string

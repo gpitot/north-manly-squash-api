@@ -11,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "openapi -c fetch --output src -i api.yml --useOptions --useUnionTypes",
-    "build": "preconstruct build"
+    "build": "npm run compile && preconstruct build"
   },
   "author": "Guillaume Pitot",
   "license": "ISC",
