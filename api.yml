@@ -121,6 +121,24 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
+    patch:
+      operationId: Patch User
+      tags: [user]
+      summary: Update user details
+      requestBody:
+        description: User login details
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserWithoutPasswordModel"
+      responses:
+        "204":
+          description: "successful response"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
   /user/refresh:
     get:
       operationId: GetUserRefresh
@@ -184,6 +202,90 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
+  /user/password/reset:
+    post:
+      operationId: PostUserResetPassword
+      tags: [user]
+      summary: User reset password
+      requestBody:
+        description: User reset password
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserResetPasswordModel"
+      responses:
+        "204":
+          description: "successful response"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+  /user/password/generate:
+    post:
+      operationId: PostUserGenerateResetPassword
+      tags: [user]
+      summary: User generate reset token
+      requestBody:
+        description: User generate reset token
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserGeneratePasswordResetModel"
+      responses:
+        "204":
+          description: "successful response"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+  /admin/password/generate/{id}:
+    post:
+      operationId: PostAdminGenerateResetPassword
+      tags: [admin]
+      summary: Admin generate reset token for user
+      parameters:
+        - in: path
+          schema: { type: string }
+          name: id
+          required: true
+          description: The user id to generate reset for
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminGeneratePasswordResetModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+  /admin/search-user:
+    get:
+      operationId: AdminSearchUser
+      tags: [admin]
+      summary: Admin search for users
+      parameters:
+        - in: path
+          schema: { type: string }
+          name: query
+          required: true
+          description: The search query
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminGeneratePasswordResetModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
 components:
   schemas:
     GetEventsResponseModel:
@@ -221,6 +323,32 @@ components:
         user:
           $ref: "#/components/schemas/UserWithoutPasswordModel"
 
+    UserGeneratePasswordResetModel:
+      description: AdminResetUserPassword
+      type: object
+      properties:
+        email:
+          description: User email address
+          type: string
+
+    AdminGeneratePasswordResetModel:
+      description: Admin generate password reset token
+      type: object
+      properties:
+        token:
+          description: Reset token
+          type: string
+
+    AdminSearchUserModel:
+      description: Admin search user model
+      type: object
+      properties:
+        users:
+          description: A list of users matching search
+          type: array
+          items:
+            $ref: "#/components/schemas/UserWithoutPasswordModel"
+
     EventModel:
       $ref: "schemas/event.yml"
 
@@ -235,6 +363,9 @@ components:
 
     UserCreateModel:
       $ref: "schemas/user/user_create.yml"
+
+    UserResetPasswordModel:
+      $ref: "schemas/user/user_reset_password.yml"
 
   responses:
     # API Gateway does not support response definitions here for '200' responses
