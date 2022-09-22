@@ -4,4 +4,6 @@ description: Participant model for events
 required: [id, name, description, spots, start, open, enabled, price]
 properties:
   user:
-    $ref: "../user/user_base.yml"
+    $ref: "../../api.yml#/components/schemas/UserBaseModel"
+  user_event:
+    $ref: "../../api.yml#/components/schemas/UserEventModel"

@@ -4,7 +4,4 @@
 
 import type { UserModel } from './UserModel';
 
-/**
- * UserMe
- */
-export type GetUserMeResponseModel = UserModel;
+export type UserBaseModel = UserModel;

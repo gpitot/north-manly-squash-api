@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 /**
- * AdminResetUserPassword
+ * User generate password reset via email
  */
 export type UserGeneratePasswordResetModel = {
     /**

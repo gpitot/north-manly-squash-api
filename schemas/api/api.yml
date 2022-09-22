@@ -24,6 +24,14 @@ tags:
     description: |
       The series of APIs for users
 
+  - name: rank
+    description: |
+      The series of APIs for ranks
+
+  - name: match
+    description: |
+      The series of APIs for matches
+
 paths:
   /event:
     get:
@@ -83,9 +91,21 @@ paths:
       operationId: PatchEventByID
       tags: [event]
       summary: Patch event by ID
+      parameters:
+        - in: path
+          schema: { type: string }
+          name: id
+          required: true
+          description: The event id to patch
+      requestBody:
+        $ref: "#/components/schemas/CreateEventModel"
       responses:
         "204":
           description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventModel"
         "403":
           $ref: "#/components/responses/ErrorUnauthorised"
         "500":
@@ -96,6 +116,13 @@ paths:
       operationId: PostEventByID
       tags: [event]
       summary: Post event by ID
+      parameters:
+        - in: path
+          schema: { type: string }
+          name: id
+          required: true
+          description: The event id to add user to
+      #ReqBody not needed, we only need userID (from token)
       responses:
         "204":
           description: "successful response"
@@ -115,7 +142,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetUserMeResponseModel"
+                $ref: "#/components/schemas/UserWithoutPasswordModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
@@ -138,7 +165,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetUserByIDResponseModel"
+                $ref: "#/components/schemas/UserWithoutPasswordModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
@@ -173,7 +200,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetUserMeRefreshModel"
+                $ref: "#/components/schemas/GetUserWithAuthTokenModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
@@ -196,7 +223,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetUserMeRefreshModel"
+                $ref: "#/components/schemas/GetUserWithAuthTokenModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
@@ -219,7 +246,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetUserMeRefreshModel"
+                $ref: "#/components/schemas/GetUserWithAuthTokenModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
@@ -303,44 +330,28 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AdminGeneratePasswordResetModel"
+                $ref: "#/components/schemas/AdminSearchUserModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
-  # Ladder endpoints
-  # /ladder:
-  #   get:
-  #     operationId: GetLadders
-  #     tags: [ladder]
-  #     summary: Get list of ladders
-  #     responses:
-  #       "200":
-  #         description: "successful response"
-  #         content:
-  #           application/json:
-  #             $ref: ""
-  #       "401":
-  #         $ref: "#/components/responses/ErrorUnauthenticated"
-  #       "500":
-  #         $ref: "#/components/responses/ErrorInternal"
-
-  # /ladder/ranks:
-  #   get:
-  #     operationId: GetRanks
-  #     tags: [ladder]
-  #     summary: Get ranks of players on ladder
-  #     responses:
-  #       "200":
-  #         description: "successful response"
-  #         content:
-  #           application/json:
-  #             $ref: ""
-  #       "401":
-  #         $ref: "#/components/responses/ErrorUnauthenticated"
-  #       "500":
-  #         $ref: "#/components/responses/ErrorInternal"
+  # Rank endpoints
+  /rank:
+    get:
+      operationId: GetRanks
+      tags: [rank]
+      summary: Get ranks of players in club
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              $ref: ""
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
 
   # # Match endpoints
   # /match:
@@ -409,9 +420,39 @@ paths:
 
 components:
   schemas:
+    #Base schemas
+
+    #events
     EventModel:
       $ref: "schemas/event/event.yml"
 
+    CreateEventModel:
+      $ref: "schemas/event/create_event.yml"
+
+    ParticipantModel:
+      $ref: "schemas/event/participant.yml"
+
+    #users
+    UserBaseModel:
+      $ref: "schemas/user/user_base.yml"
+
+    UserWithoutPasswordModel:
+      $ref: "schemas/user/user_without_password.yml"
+
+    UserLoginModel:
+      $ref: "schemas/user/user_login.yml"
+
+    UserCreateModel:
+      $ref: "schemas/user/user_create.yml"
+
+    UserResetPasswordModel:
+      $ref: "schemas/user/user_reset_password.yml"
+
+    #user events
+    UserEventModel:
+      $ref: "schemas/user_event/user_event.yml"
+
+    #Modifications e.g. arrays
     GetEventsResponseModel:
       description: "Array of events"
       type: "object"
@@ -422,17 +463,7 @@ components:
           items:
             $ref: "#/components/schemas/EventModel"
 
-    GetUserMeResponseModel:
-      description: "UserMe"
-      type: "object"
-      $ref: "#/components/schemas/UserModel"
-
-    GetUserByIDResponseModel:
-      description: "UserByID"
-      type: "object"
-      $ref: "#/components/schemas/UserWithoutPasswordModel"
-
-    GetUserMeRefreshModel:
+    GetUserWithAuthTokenModel:
       description: "UserRefresh"
       type: "object"
       properties:
@@ -443,7 +474,7 @@ components:
           $ref: "#/components/schemas/UserWithoutPasswordModel"
 
     UserGeneratePasswordResetModel:
-      description: AdminResetUserPassword
+      description: User generate password reset via email
       type: object
       properties:
         email:
@@ -467,27 +498,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/UserWithoutPasswordModel"
-
-    CreateEventModel:
-      $ref: "schemas/event/create_event.yml"
-
-    ParticipantModel:
-      $ref: "schemas/event/participant.yml"
-
-    UserModel:
-      $ref: "schemas/user/user.yml"
-
-    UserWithoutPasswordModel:
-      $ref: "schemas/user/user_without_password.yml"
-
-    UserLoginModel:
-      $ref: "schemas/user/user_login.yml"
-
-    UserCreateModel:
-      $ref: "schemas/user/user_create.yml"
-
-    UserResetPasswordModel:
-      $ref: "schemas/user/user_reset_password.yml"
 
   responses:
     # API Gateway does not support response definitions here for '200' responses

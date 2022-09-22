@@ -7,7 +7,7 @@ import type { UserWithoutPasswordModel } from './UserWithoutPasswordModel';
 /**
  * UserRefresh
  */
-export type GetUserMeRefreshModel = {
+export type GetUserWithAuthTokenModel = {
     /**
      * Authentication token
      */

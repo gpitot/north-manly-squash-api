@@ -1,12 +1,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { GetUserByIDResponseModel } from '../models/GetUserByIDResponseModel';
-import type { GetUserMeRefreshModel } from '../models/GetUserMeRefreshModel';
-import type { GetUserMeResponseModel } from '../models/GetUserMeResponseModel';
+import type { GetUserWithAuthTokenModel } from '../models/GetUserWithAuthTokenModel';
 import type { UserCreateModel } from '../models/UserCreateModel';
 import type { UserGeneratePasswordResetModel } from '../models/UserGeneratePasswordResetModel';
 import type { UserLoginModel } from '../models/UserLoginModel';
+import type { UserModel } from '../models/UserModel';
 import type { UserResetPasswordModel } from '../models/UserResetPasswordModel';
 import type { UserWithoutPasswordModel } from '../models/UserWithoutPasswordModel';
 
@@ -18,10 +17,10 @@ export class UserService {
 
     /**
      * Get current user details
-     * @returns GetUserMeResponseModel successful response
+     * @returns UserModel successful response
      * @throws ApiError
      */
-    public static getUserMe(): CancelablePromise<GetUserMeResponseModel> {
+    public static getUserMe(): CancelablePromise<UserModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/me',
@@ -34,7 +33,7 @@ export class UserService {
 
     /**
      * Get specific user details
-     * @returns GetUserByIDResponseModel successful response
+     * @returns UserWithoutPasswordModel successful response
      * @throws ApiError
      */
     public static getUserById({
@@ -44,7 +43,7 @@ export class UserService {
          * The user id to look up
          */
         id: string,
-    }): CancelablePromise<GetUserByIDResponseModel> {
+    }): CancelablePromise<UserWithoutPasswordModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/{id}',
@@ -85,10 +84,10 @@ export class UserService {
 
     /**
      * Get current user details
-     * @returns GetUserMeRefreshModel successful response
+     * @returns GetUserWithAuthTokenModel successful response
      * @throws ApiError
      */
-    public static getUserRefresh(): CancelablePromise<GetUserMeRefreshModel> {
+    public static getUserRefresh(): CancelablePromise<GetUserWithAuthTokenModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/refresh',
@@ -101,7 +100,7 @@ export class UserService {
 
     /**
      * User login
-     * @returns GetUserMeRefreshModel successful response
+     * @returns GetUserWithAuthTokenModel successful response
      * @throws ApiError
      */
     public static postUserLogin({
@@ -111,7 +110,7 @@ export class UserService {
          * User login details
          */
         requestBody?: UserLoginModel,
-    }): CancelablePromise<GetUserMeRefreshModel> {
+    }): CancelablePromise<GetUserWithAuthTokenModel> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user/login',
@@ -126,7 +125,7 @@ export class UserService {
 
     /**
      * User create
-     * @returns GetUserMeRefreshModel successful response
+     * @returns GetUserWithAuthTokenModel successful response
      * @throws ApiError
      */
     public static postUserCreate({
@@ -136,7 +135,7 @@ export class UserService {
          * User create account
          */
         requestBody?: UserCreateModel,
-    }): CancelablePromise<GetUserMeRefreshModel> {
+    }): CancelablePromise<GetUserWithAuthTokenModel> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/user/create',

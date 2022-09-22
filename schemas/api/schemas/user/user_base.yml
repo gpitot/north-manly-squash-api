@@ -1,8 +1,7 @@
 title: "UserBaseModel"
 type: object
 description: A base user without email,phone,password
-required:
-  [id, firstname, lastname, role, streak, vaccinated, rank]
+required: [id, firstname, lastname, role, sporty_hq_rating, sporty_hq_approved]
 properties:
   id:
     description: ID of user
@@ -16,12 +15,12 @@ properties:
   role:
     description: Role of user
     type: string
-  streak:
-    description: Social streak of user
+  sporty_hq_url:
+    description: SportyHQ URL
+    type: string
+  sporty_hq_rating:
     type: number
-  vaccinated:
-    description: User is vaccinated
+    description: SportyHQ Rating
+  sporty_hq_approved:
     type: boolean
-  rank:
-    description: Rank of user
-    type: number
+    description: Is SportyHQ approved by an admin
