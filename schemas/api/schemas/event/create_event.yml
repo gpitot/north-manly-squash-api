@@ -1,11 +1,8 @@
-title: "EventModel"
+title: "CreateEventModel"
 type: object
 description: An event with event details
-required: [id, name, description, spots, start, open, enabled, price]
+required: [name, description, spots, start, open, enabled, price]
 properties:
-  id:
-    description: ID of event
-    type: number
   name:
     description: Name of event
     type: string

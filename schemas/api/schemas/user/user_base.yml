@@ -1,0 +1,27 @@
+title: "UserBaseModel"
+type: object
+description: A base user without email,phone,password
+required:
+  [id, firstname, lastname, role, streak, vaccinated, rank]
+properties:
+  id:
+    description: ID of user
+    type: number
+  firstname:
+    description: Firstname of user
+    type: string
+  lastname:
+    description: Lastname of user
+    type: string
+  role:
+    description: Role of user
+    type: string
+  streak:
+    description: Social streak of user
+    type: number
+  vaccinated:
+    description: User is vaccinated
+    type: boolean
+  rank:
+    description: Rank of user
+    type: number

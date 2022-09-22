@@ -1,0 +1,32 @@
+title: "EventModel"
+type: object
+description: An event with event details
+required: [id, name, description, spots, start, open, enabled, price]
+properties:
+  id:
+    description: ID of event
+    type: number
+  name:
+    description: Name of event
+    type: string
+  spots:
+    description: Number of max spots open for event
+    type: number
+  start:
+    description: Start epoch of event
+    type: string
+  open:
+    description: Open epoch of event
+    type: string
+  enabled:
+    type: boolean
+    description: Event is enabled or disabled
+  price:
+    description: Price of event in cents
+    type: number
+
+  participants:
+    description: List of participants
+    type: array
+    items:
+      $ref: "../../api.yml#/components/schemas/ParticipantModel"

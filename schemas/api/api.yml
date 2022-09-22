@@ -16,6 +16,10 @@ tags:
     description: |
       The series of APIs for events
 
+  - name: user_event
+    description: |
+      The series of APIs for user events
+
   - name: user
     description: |
       The series of APIs for users
@@ -25,7 +29,7 @@ paths:
     get:
       operationId: GetEvents
       tags: [event]
-      summary: Get all open events
+      summary: Get all open events with users
       responses:
         "200":
           description: "successful response"
@@ -36,11 +40,29 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
+    post:
+      operationId: PostEvent
+      tags: [event]
+      summary: Create an event
+      requestBody:
+        $ref: "#/components/schemas/CreateEventModel"
+      responses:
+        "204":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventModel"
+        "403":
+          $ref: "#/components/responses/ErrorUnauthorised"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
   /event/{id}:
     get:
       operationId: GetEventByID
       tags: [event]
-      summary: Get event by ID
+      summary: Get event by ID with event_users attached
       parameters:
         - in: path
           schema: { type: string }
@@ -69,6 +91,7 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
+    # add user to event
     post:
       operationId: PostEventByID
       tags: [event]
@@ -286,6 +309,104 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
+  # Ladder endpoints
+  # /ladder:
+  #   get:
+  #     operationId: GetLadders
+  #     tags: [ladder]
+  #     summary: Get list of ladders
+  #     responses:
+  #       "200":
+  #         description: "successful response"
+  #         content:
+  #           application/json:
+  #             $ref: ""
+  #       "401":
+  #         $ref: "#/components/responses/ErrorUnauthenticated"
+  #       "500":
+  #         $ref: "#/components/responses/ErrorInternal"
+
+  # /ladder/ranks:
+  #   get:
+  #     operationId: GetRanks
+  #     tags: [ladder]
+  #     summary: Get ranks of players on ladder
+  #     responses:
+  #       "200":
+  #         description: "successful response"
+  #         content:
+  #           application/json:
+  #             $ref: ""
+  #       "401":
+  #         $ref: "#/components/responses/ErrorUnauthenticated"
+  #       "500":
+  #         $ref: "#/components/responses/ErrorInternal"
+
+  # # Match endpoints
+  # /match:
+  #   get:
+  #     operationId: GetMatches
+  #     tags: [match]
+  #     summary: Get matches
+  #     responses:
+  #       "200":
+  #         description: "successful response"
+  #         content:
+  #           application/json:
+  #             $ref: ""
+  #       "401":
+  #         $ref: "#/components/responses/ErrorUnauthenticated"
+  #       "500":
+  #         $ref: "#/components/responses/ErrorInternal"
+
+  #   post:
+  #     operationId: PostMatch
+  #     tags: [match]
+  #     summary: Create match
+  #     responses:
+  #       "200":
+  #         description: "successful response"
+  #         content:
+  #           application/json:
+  #             $ref: ""
+  #       "401":
+  #         $ref: "#/components/responses/ErrorUnauthenticated"
+  #       "500":
+  #         $ref: "#/components/responses/ErrorInternal"
+
+  # /match/{matchID}:
+  #   patch:
+  #     operationId: PostMatch
+  #     tags: [match]
+  #     summary: Create match
+  #     responses:
+  #       "200":
+  #         description: "successful response"
+  #         content:
+  #           application/json:
+  #             $ref: ""
+  #       "401":
+  #         $ref: "#/components/responses/ErrorUnauthenticated"
+  #       "500":
+  #         $ref: "#/components/responses/ErrorInternal"
+
+  #user event endpoints
+  # /user-events/{userEventID}:
+  #   patch:
+  #     operationId: PostUserEvent
+  #     tags: [user_event]
+  #     summary: Patch user event
+  #     responses:
+  #       "200":
+  #         description: "successful response"
+  #         content:
+  #           application/json:
+  #             $ref: ""
+  #       "401":
+  #         $ref: "#/components/responses/ErrorUnauthenticated"
+  #       "500":
+  #         $ref: "#/components/responses/ErrorInternal"
+
 components:
   schemas:
     GetEventsResponseModel:
@@ -350,7 +471,13 @@ components:
             $ref: "#/components/schemas/UserWithoutPasswordModel"
 
     EventModel:
-      $ref: "schemas/event.yml"
+      $ref: "schemas/event/event.yml"
+
+    CreateEventModel:
+      $ref: "schemas/event/create_event.yml"
+
+    ParticipantModel:
+      $ref: "schemas/event/participant.yml"
 
     UserModel:
       $ref: "schemas/user/user.yml"

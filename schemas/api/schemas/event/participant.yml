@@ -1,0 +1,7 @@
+title: "ParticipantModel"
+type: object
+description: Participant model for events
+required: [id, name, description, spots, start, open, enabled, price]
+properties:
+  user:
+    type: string
