@@ -31,16 +31,16 @@ export type UserWithoutPasswordModel = {
      */
     role: string;
     /**
-     * Social streak of user
+     * SportyHQ URL
      */
-    streak: number;
+    sporty_hq_url?: string;
     /**
-     * User is vaccinated
+     * SportyHQ Rating
      */
-    vaccinated: boolean;
+    sporty_hq_rating: number;
     /**
-     * Rank of user
+     * Is SportyHQ approved by an admin
      */
-    rank: number;
+    sporty_hq_approved: boolean;
 };
 

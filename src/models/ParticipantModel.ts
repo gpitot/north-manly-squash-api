@@ -2,14 +2,14 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { UserBaseModel } from './UserBaseModel';
 import type { UserEventModel } from './UserEventModel';
-import type { UserModel } from './UserModel';
 
 /**
  * Participant model for events
  */
 export type ParticipantModel = {
-    user?: UserModel;
+    user?: UserBaseModel;
     user_event?: UserEventModel;
 };
 

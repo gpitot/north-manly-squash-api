@@ -5,7 +5,6 @@ import type { GetUserWithAuthTokenModel } from '../models/GetUserWithAuthTokenMo
 import type { UserCreateModel } from '../models/UserCreateModel';
 import type { UserGeneratePasswordResetModel } from '../models/UserGeneratePasswordResetModel';
 import type { UserLoginModel } from '../models/UserLoginModel';
-import type { UserModel } from '../models/UserModel';
 import type { UserResetPasswordModel } from '../models/UserResetPasswordModel';
 import type { UserWithoutPasswordModel } from '../models/UserWithoutPasswordModel';
 
@@ -17,10 +16,10 @@ export class UserService {
 
     /**
      * Get current user details
-     * @returns UserModel successful response
+     * @returns UserWithoutPasswordModel successful response
      * @throws ApiError
      */
-    public static getUserMe(): CancelablePromise<UserModel> {
+    public static getUserMe(): CancelablePromise<UserWithoutPasswordModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/me',

@@ -44,7 +44,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetEventsResponseModel"
+                description: "Array of events"
+                type: "object"
+                required: [events]
+                properties:
+                  events:
+                    type: "array"
+                    items:
+                      $ref: "#/components/schemas/EventModel"
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
@@ -330,7 +337,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/AdminSearchUserModel"
+                description: Admin search user model
+                type: object
+                properties:
+                  users:
+                    description: A list of users matching search
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserWithoutPasswordModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
@@ -347,13 +361,22 @@ paths:
           description: "successful response"
           content:
             application/json:
-              $ref: ""
+              schema:
+                description: "Array of users"
+                type: "object"
+                required: [users]
+                properties:
+                  users:
+                    type: "array"
+                    items:
+                      $ref: "#/components/schemas/UserBaseModel"
+
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
-  # # Match endpoints
+  #  Match endpoints
   # /match:
   #   get:
   #     operationId: GetMatches
@@ -453,15 +476,6 @@ components:
       $ref: "schemas/user_event/user_event.yml"
 
     #Modifications e.g. arrays
-    GetEventsResponseModel:
-      description: "Array of events"
-      type: "object"
-      required: [events]
-      properties:
-        events:
-          type: "array"
-          items:
-            $ref: "#/components/schemas/EventModel"
 
     GetUserWithAuthTokenModel:
       description: "UserRefresh"
@@ -488,16 +502,6 @@ components:
         token:
           description: Reset token
           type: string
-
-    AdminSearchUserModel:
-      description: Admin search user model
-      type: object
-      properties:
-        users:
-          description: A list of users matching search
-          type: array
-          items:
-            $ref: "#/components/schemas/UserWithoutPasswordModel"
 
   responses:
     # API Gateway does not support response definitions here for '200' responses

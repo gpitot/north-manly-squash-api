@@ -2,7 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { EventModel } from '../models/EventModel';
-import type { GetEventsResponseModel } from '../models/GetEventsResponseModel';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -12,10 +11,12 @@ export class EventService {
 
     /**
      * Get all open events with users
-     * @returns GetEventsResponseModel successful response
+     * @returns any successful response
      * @throws ApiError
      */
-    public static getEvents(): CancelablePromise<GetEventsResponseModel> {
+    public static getEvents(): CancelablePromise<{
+        events: Array<EventModel>;
+    }> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/event',
@@ -79,10 +80,26 @@ export class EventService {
      * @returns void
      * @throws ApiError
      */
-    public static patchEventById(): CancelablePromise<void> {
+    public static patchEventById({
+        id,
+        requestBody,
+    }: {
+        /**
+         * The event id to patch
+         */
+        id: string,
+        /**
+         * An event with event details
+         */
+        requestBody?: any,
+    }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/event/{id}',
+            path: {
+                'id': id,
+            },
+            body: requestBody,
             errors: {
                 403: `Unauthorised access to specified resource`,
                 500: `An internal error occurred`,
@@ -95,10 +112,20 @@ export class EventService {
      * @returns void
      * @throws ApiError
      */
-    public static postEventById(): CancelablePromise<void> {
+    public static postEventById({
+        id,
+    }: {
+        /**
+         * The event id to add user to
+         */
+        id: string,
+    }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/event/{id}',
+            path: {
+                'id': id,
+            },
             errors: {
                 403: `Unauthorised access to specified resource`,
                 500: `An internal error occurred`,
