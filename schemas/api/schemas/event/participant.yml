@@ -4,4 +4,4 @@ description: Participant model for events
 required: [id, name, description, spots, start, open, enabled, price]
 properties:
   user:
-    type: string
+    $ref: "../user/user_base.yml"

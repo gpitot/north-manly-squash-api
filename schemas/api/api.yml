@@ -75,7 +75,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/GetEventByIDResponseModel"
+                $ref: "#/components/schemas/EventModel"
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
@@ -409,6 +409,9 @@ paths:
 
 components:
   schemas:
+    EventModel:
+      $ref: "schemas/event/event.yml"
+
     GetEventsResponseModel:
       description: "Array of events"
       type: "object"
@@ -418,11 +421,6 @@ components:
           type: "array"
           items:
             $ref: "#/components/schemas/EventModel"
-
-    GetEventByIDResponseModel:
-      description: "Event"
-      type: "object"
-      $ref: "#/components/schemas/EventModel"
 
     GetUserMeResponseModel:
       description: "UserMe"
@@ -470,16 +468,11 @@ components:
           items:
             $ref: "#/components/schemas/UserWithoutPasswordModel"
 
-    EventModel:
-      $ref: "schemas/event/event.yml"
-
     CreateEventModel:
       $ref: "schemas/event/create_event.yml"
 
     ParticipantModel:
-      description: Admin search user model
-      type: string
-      #$ref: "schemas/event/participant.yml"
+      $ref: "schemas/event/participant.yml"
 
     UserModel:
       $ref: "schemas/user/user.yml"

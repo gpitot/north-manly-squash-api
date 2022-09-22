@@ -10,12 +10,11 @@ export type { AdminGeneratePasswordResetModel } from './models/AdminGeneratePass
 export type { AdminSearchUserModel } from './models/AdminSearchUserModel';
 export type { CreateEventModel } from './models/CreateEventModel';
 export type { EventModel } from './models/EventModel';
-export type { GetEventByIDResponseModel } from './models/GetEventByIDResponseModel';
 export type { GetEventsResponseModel } from './models/GetEventsResponseModel';
 export type { GetUserByIDResponseModel } from './models/GetUserByIDResponseModel';
 export type { GetUserMeRefreshModel } from './models/GetUserMeRefreshModel';
 export type { GetUserMeResponseModel } from './models/GetUserMeResponseModel';
-export type { ParticipantsModel } from './models/ParticipantsModel';
+export type { ParticipantModel } from './models/ParticipantModel';
 export type { UserCreateModel } from './models/UserCreateModel';
 export type { UserGeneratePasswordResetModel } from './models/UserGeneratePasswordResetModel';
 export type { UserLoginModel } from './models/UserLoginModel';
@@ -25,7 +24,4 @@ export type { UserWithoutPasswordModel } from './models/UserWithoutPasswordModel
 
 export { AdminService } from './services/AdminService';
 export { EventService } from './services/EventService';
-export { LadderService } from './services/LadderService';
-export { MatchService } from './services/MatchService';
 export { UserService } from './services/UserService';
-export { UserEventService } from './services/UserEventService';

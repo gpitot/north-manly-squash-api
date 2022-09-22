@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { GetEventByIDResponseModel } from '../models/GetEventByIDResponseModel';
+import type { EventModel } from '../models/EventModel';
 import type { GetEventsResponseModel } from '../models/GetEventsResponseModel';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -51,7 +51,7 @@ export class EventService {
 
     /**
      * Get event by ID with event_users attached
-     * @returns GetEventByIDResponseModel successful response
+     * @returns EventModel successful response
      * @throws ApiError
      */
     public static getEventById({
@@ -61,7 +61,7 @@ export class EventService {
          * The event id to look up
          */
         id: string,
-    }): CancelablePromise<GetEventByIDResponseModel> {
+    }): CancelablePromise<EventModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/event/{id}',

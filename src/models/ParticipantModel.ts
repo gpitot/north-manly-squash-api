@@ -5,7 +5,7 @@
 /**
  * Participant model for events
  */
-export type ParticipantsModel = {
+export type ParticipantModel = {
     /**
      * A base user without email,phone,password
      */

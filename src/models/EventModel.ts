@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import type { ParticipantModel } from './ParticipantModel';
+
 /**
  * An event with event details
  */
@@ -34,5 +36,9 @@ export type EventModel = {
      * Price of event in cents
      */
     price: number;
+    /**
+     * List of participants
+     */
+    participants?: Array<ParticipantModel>;
 };
 
