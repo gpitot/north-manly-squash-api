@@ -472,21 +472,34 @@ paths:
           $ref: "#/components/responses/ErrorInternal"
 
   #user event endpoints
-  # /user-events/{userEventID}:
-  #   patch:
-  #     operationId: PostUserEvent
-  #     tags: [user_event]
-  #     summary: Patch user event
-  #     responses:
-  #       "200":
-  #         description: "successful response"
-  #         content:
-  #           application/json:
-  #             $ref: ""
-  #       "401":
-  #         $ref: "#/components/responses/ErrorUnauthenticated"
-  #       "500":
-  #         $ref: "#/components/responses/ErrorInternal"
+  /user-events/{userEventID}:
+    patch:
+      operationId: PostUserEvent
+      tags: [user_event]
+      summary: Patch user event
+      parameters:
+        - in: path
+          schema: { type: string }
+          name: userEventID
+          required: true
+          description: The user event id to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserEventPatchModel"
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserEventModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
 
 components:
   schemas:
@@ -527,6 +540,9 @@ components:
     #user events
     UserEventModel:
       $ref: "schemas/user_event/user_event.yml"
+
+    UserEventPatchModel:
+      $ref: "schemas/user_event/patch_user_event.yml"
 
     #match
     MatchModel:

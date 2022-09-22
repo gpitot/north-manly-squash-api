@@ -1,0 +1,19 @@
+title: "UserEventPatchModel"
+type: object
+description: User event model , ties user to the event
+properties:
+  id:
+    description: ID of user_event
+    type: number
+  registered:
+    description: Epoch registered
+    type: string
+  paid:
+    type: boolean
+    description: User has paid or not
+  receipt:
+    type: string
+    description: Reciept copy
+  enabled:
+    type: boolean
+    description: Is user still enrolled
