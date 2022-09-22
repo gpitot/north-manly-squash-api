@@ -477,7 +477,9 @@ components:
       $ref: "schemas/event/create_event.yml"
 
     ParticipantModel:
-      $ref: "schemas/event/participant.yml"
+      description: Admin search user model
+      type: string
+      #$ref: "schemas/event/participant.yml"
 
     UserModel:
       $ref: "schemas/user/user.yml"

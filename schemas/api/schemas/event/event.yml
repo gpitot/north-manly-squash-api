@@ -29,4 +29,4 @@ properties:
     description: List of participants
     type: array
     items:
-      $ref: "../../api.yml#/components/schemas/ParticipantModel"
+      $ref: "../../api.yml#/components/schemas/UserGeneratePasswordResetModel"
