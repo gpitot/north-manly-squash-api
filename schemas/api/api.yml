@@ -44,14 +44,7 @@ paths:
           content:
             application/json:
               schema:
-                description: "Array of events"
-                type: "object"
-                required: [events]
-                properties:
-                  events:
-                    type: "array"
-                    items:
-                      $ref: "#/components/schemas/EventModel"
+                $ref: "#/components/schemas/GetEventsResponseModel"
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
@@ -78,16 +71,12 @@ paths:
           $ref: "#/components/responses/ErrorInternal"
 
   /event/{id}:
+    parameters:
+      - $ref: "#/components/parameters/pathWithID"
     get:
       operationId: GetEventByID
       tags: [event]
       summary: Get event by ID with event_users attached
-      parameters:
-        - in: path
-          schema: { type: string }
-          name: id
-          required: true
-          description: The event id to look up
       responses:
         "200":
           description: "successful response"
@@ -102,12 +91,6 @@ paths:
       operationId: PatchEventByID
       tags: [event]
       summary: Patch event by ID
-      parameters:
-        - in: path
-          schema: { type: string }
-          name: id
-          required: true
-          description: The event id to patch
       requestBody:
         required: true
         content:
@@ -131,12 +114,6 @@ paths:
       operationId: PostEventByID
       tags: [event]
       summary: Post event by ID
-      parameters:
-        - in: path
-          schema: { type: string }
-          name: id
-          required: true
-          description: The event id to add user to
       #ReqBody not needed, we only need userID (from token)
       responses:
         "204":
@@ -164,16 +141,12 @@ paths:
           $ref: "#/components/responses/ErrorInternal"
 
   /user/{id}:
+    parameters:
+      - $ref: "#/components/parameters/pathWithID"
     get:
       operationId: GetUserByID
       tags: [user]
       summary: Get specific user details
-      parameters:
-        - in: path
-          schema: { type: string }
-          name: id
-          required: true
-          description: The user id to look up
       responses:
         "200":
           description: "successful response"
@@ -311,16 +284,12 @@ paths:
           $ref: "#/components/responses/ErrorInternal"
 
   /admin/password/generate/{id}:
+    parameters:
+      - $ref: "#/components/parameters/pathWithID"
     post:
       operationId: PostAdminGenerateResetPassword
       tags: [admin]
       summary: Admin generate reset token for user
-      parameters:
-        - in: path
-          schema: { type: string }
-          name: id
-          required: true
-          description: The user id to generate reset for
       responses:
         "200":
           description: "successful response"
@@ -350,14 +319,8 @@ paths:
           content:
             application/json:
               schema:
-                description: Admin search user model
-                type: object
-                properties:
-                  users:
-                    description: A list of users matching search
-                    type: array
-                    items:
-                      $ref: "#/components/schemas/UserWithoutPasswordModel"
+                $ref: "#/components/schemas/AdminSearchUserResponseModel"
+
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
@@ -375,14 +338,7 @@ paths:
           content:
             application/json:
               schema:
-                description: "Array of users"
-                type: "object"
-                required: [users]
-                properties:
-                  users:
-                    type: "array"
-                    items:
-                      $ref: "#/components/schemas/UserBaseModel"
+                $ref: "#/components/schemas/RankResponseModel"
 
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
@@ -401,14 +357,7 @@ paths:
           content:
             application/json:
               schema:
-                description: "Array of matches"
-                type: "object"
-                required: [matches]
-                properties:
-                  matches:
-                    type: "array"
-                    items:
-                      $ref: "#/components/schemas/MatchModel"
+                $ref: "#/components/schemas/MatchGetResponseModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
@@ -442,17 +391,13 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
-  /match/{matchID}:
+  /match/{id}:
+    parameters:
+      - $ref: "#/components/parameters/pathWithID"
     patch:
       operationId: PatchMatch
       tags: [match]
       summary: Update match
-      parameters:
-        - in: path
-          schema: { type: string }
-          name: matchID
-          required: true
-          description: The match id to update
       requestBody:
         required: true
         content:
@@ -472,17 +417,13 @@ paths:
           $ref: "#/components/responses/ErrorInternal"
 
   #user event endpoints
-  /user-events/{userEventID}:
+  /user-events/{id}:
+    parameters:
+      - $ref: "#/components/parameters/pathWithID"
     patch:
       operationId: PostUserEvent
       tags: [user_event]
       summary: Patch user event
-      parameters:
-        - in: path
-          schema: { type: string }
-          name: userEventID
-          required: true
-          description: The user event id to update
       requestBody:
         required: true
         content:
@@ -502,6 +443,14 @@ paths:
           $ref: "#/components/responses/ErrorInternal"
 
 components:
+  parameters:
+    pathWithID:
+      in: path
+      schema: { type: string }
+      name: id
+      required: true
+      description: The event id to look up
+
   schemas:
     #Base schemas
 
@@ -553,6 +502,16 @@ components:
 
     #Modifications e.g. arrays
 
+    GetEventsResponseModel:
+      description: "Array of events"
+      type: "object"
+      required: [events]
+      properties:
+        events:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/EventModel"
+
     GetUserWithAuthTokenModel:
       description: "UserRefresh"
       type: "object"
@@ -578,6 +537,36 @@ components:
         token:
           description: Reset token
           type: string
+
+    AdminSearchUserResponseModel:
+      description: Admin search user model
+      type: object
+      properties:
+        users:
+          description: A list of users matching search
+          type: array
+          items:
+            $ref: "#/components/schemas/UserWithoutPasswordModel"
+
+    RankResponseModel:
+      description: "Array of users"
+      type: "object"
+      required: [users]
+      properties:
+        users:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/UserBaseModel"
+
+    MatchGetResponseModel:
+      description: "Array of matches"
+      type: "object"
+      required: [matches]
+      properties:
+        matches:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/MatchModel"
 
   responses:
     # API Gateway does not support response definitions here for '200' responses

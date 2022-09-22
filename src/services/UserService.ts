@@ -40,7 +40,7 @@ export class UserService {
         id,
     }: {
         /**
-         * The user id to look up
+         * The event id to look up
          */
         id: string,
     }): CancelablePromise<UserWithoutPasswordModel> {
@@ -63,8 +63,13 @@ export class UserService {
      * @throws ApiError
      */
     public static patchUser({
+        id,
         requestBody,
     }: {
+        /**
+         * The event id to look up
+         */
+        id: string,
         /**
          * User patch details
          */
@@ -73,6 +78,9 @@ export class UserService {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/user/{id}',
+            path: {
+                'id': id,
+            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {

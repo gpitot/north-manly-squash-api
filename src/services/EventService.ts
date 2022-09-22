@@ -3,6 +3,7 @@
 /* eslint-disable */
 import type { CreateEventModel } from '../models/CreateEventModel';
 import type { EventModel } from '../models/EventModel';
+import type { GetEventsResponseModel } from '../models/GetEventsResponseModel';
 import type { PatchEventModel } from '../models/PatchEventModel';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -13,12 +14,10 @@ export class EventService {
 
     /**
      * Get all open events with users
-     * @returns any successful response
+     * @returns GetEventsResponseModel successful response
      * @throws ApiError
      */
-    public static getEvents(): CancelablePromise<{
-        events: Array<EventModel>;
-    }> {
+    public static getEvents(): CancelablePromise<GetEventsResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/event',
@@ -85,7 +84,7 @@ export class EventService {
         requestBody,
     }: {
         /**
-         * The event id to patch
+         * The event id to look up
          */
         id: string,
         requestBody: PatchEventModel,
@@ -114,7 +113,7 @@ export class EventService {
         id,
     }: {
         /**
-         * The event id to add user to
+         * The event id to look up
          */
         id: string,
     }): CancelablePromise<void> {

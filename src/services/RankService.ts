@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { UserBaseModel } from '../models/UserBaseModel';
+import type { RankResponseModel } from '../models/RankResponseModel';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -11,12 +11,10 @@ export class RankService {
 
     /**
      * Get ranks of players in club
-     * @returns any successful response
+     * @returns RankResponseModel successful response
      * @throws ApiError
      */
-    public static getRanks(): CancelablePromise<{
-        users: Array<UserBaseModel>;
-    }> {
+    public static getRanks(): CancelablePromise<RankResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/rank',

@@ -16,20 +16,20 @@ export class UserEventService {
      * @throws ApiError
      */
     public static postUserEvent({
-        userEventId,
+        id,
         requestBody,
     }: {
         /**
-         * The user event id to update
+         * The event id to look up
          */
-        userEventId: string,
+        id: string,
         requestBody: UserEventPatchModel,
     }): CancelablePromise<UserEventModel> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/user-events/{userEventID}',
+            url: '/user-events/{id}',
             path: {
-                'userEventID': userEventId,
+                'id': id,
             },
             body: requestBody,
             mediaType: 'application/json',

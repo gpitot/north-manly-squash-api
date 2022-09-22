@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { MatchGetResponseModel } from '../models/MatchGetResponseModel';
 import type { MatchModel } from '../models/MatchModel';
 import type { MatchUpdateModel } from '../models/MatchUpdateModel';
 
@@ -12,12 +13,10 @@ export class MatchService {
 
     /**
      * Get matches
-     * @returns any successful response
+     * @returns MatchGetResponseModel successful response
      * @throws ApiError
      */
-    public static getMatches(): CancelablePromise<{
-        matches: Array<MatchModel>;
-    }> {
+    public static getMatches(): CancelablePromise<MatchGetResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/match',
@@ -64,20 +63,20 @@ export class MatchService {
      * @throws ApiError
      */
     public static patchMatch({
-        matchId,
+        id,
         requestBody,
     }: {
         /**
-         * The match id to update
+         * The event id to look up
          */
-        matchId: string,
+        id: string,
         requestBody: MatchUpdateModel,
     }): CancelablePromise<MatchModel> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/match/{matchID}',
+            url: '/match/{id}',
             path: {
-                'matchID': matchId,
+                'id': id,
             },
             body: requestBody,
             mediaType: 'application/json',

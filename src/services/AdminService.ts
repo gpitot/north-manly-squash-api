@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 import type { AdminGeneratePasswordResetModel } from '../models/AdminGeneratePasswordResetModel';
-import type { UserWithoutPasswordModel } from '../models/UserWithoutPasswordModel';
+import type { AdminSearchUserResponseModel } from '../models/AdminSearchUserResponseModel';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -19,7 +19,7 @@ export class AdminService {
         id,
     }: {
         /**
-         * The user id to generate reset for
+         * The event id to look up
          */
         id: string,
     }): CancelablePromise<AdminGeneratePasswordResetModel> {
@@ -38,7 +38,7 @@ export class AdminService {
 
     /**
      * Admin search for users
-     * @returns any successful response
+     * @returns AdminSearchUserResponseModel successful response
      * @throws ApiError
      */
     public static adminSearchUser({
@@ -48,12 +48,7 @@ export class AdminService {
          * The search query
          */
         query: string,
-    }): CancelablePromise<{
-        /**
-         * A list of users matching search
-         */
-        users?: Array<UserWithoutPasswordModel>;
-    }> {
+    }): CancelablePromise<AdminSearchUserResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/admin/search-user',
