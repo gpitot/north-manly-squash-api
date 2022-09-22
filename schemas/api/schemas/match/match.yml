@@ -1,0 +1,56 @@
+title: "MatchModel"
+type: object
+description: A match between two players
+required:
+  [
+    id,
+    player_1,
+    player_2,
+    challenge_date,
+    player_1_paid,
+    player_2_paid,
+    approved,
+    accepted,
+    declined,
+    reminded,
+  ]
+properties:
+  id:
+    description: ID of match
+    type: number
+  player_1:
+    type: number
+    description: Player 1 ID
+  player_2:
+    type: number
+    description: Player 2 ID
+  challenge_date:
+    type: string
+    description: Epoch of challenge date
+  match_date:
+    type: string
+    description: Epoch of match date
+  player_1_games:
+    type: number
+    description: Number of games won by player 1
+  player_2_games:
+    type: number
+    description: Number of games won by player 2
+  player_1_paid:
+    type: boolean
+    description: Player 1 has paid
+  player_2_paid:
+    type: boolean
+    description: Player 2 has paid
+  approved:
+    type: boolean
+    description: Admin has approved match result
+  accepted:
+    type: boolean
+    description: User has accepted match challenge
+  declined:
+    type: boolean
+    description: User has declined match challenge
+  reminded:
+    type: boolean
+    description: Admin has reminded users about match

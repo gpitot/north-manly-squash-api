@@ -1,0 +1,28 @@
+title: "PatchMatchModel"
+type: object
+description: Update match details between two players
+properties:
+  match_date:
+    type: string
+    description: Epoch of match date
+  player_1_games:
+    type: number
+    description: Number of games won by player 1
+  player_2_games:
+    type: number
+    description: Number of games won by player 2
+  player_1_paid:
+    type: boolean
+    description: Player 1 has paid
+  player_2_paid:
+    type: boolean
+    description: Player 2 has paid
+  approved:
+    type: boolean
+    description: Admin has approved match result
+  accepted:
+    type: boolean
+    description: User has accepted match challenge
+  declined:
+    type: boolean
+    description: User has declined match challenge

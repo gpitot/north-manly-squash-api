@@ -60,7 +60,11 @@ paths:
       tags: [event]
       summary: Create an event
       requestBody:
-        $ref: "#/components/schemas/CreateEventModel"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEventModel"
       responses:
         "204":
           description: "successful response"
@@ -105,7 +109,11 @@ paths:
           required: true
           description: The event id to patch
       requestBody:
-        $ref: "#/components/schemas/CreateEventModel"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PatchEventModel"
       responses:
         "204":
           description: "successful response"
@@ -183,11 +191,12 @@ paths:
       tags: [user]
       summary: Update user details
       requestBody:
-        description: User login details
+        required: true
+        description: User patch details
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UserWithoutPasswordModel"
+              $ref: "#/components/schemas/UserPatchModel"
       responses:
         "204":
           description: "successful response"
@@ -219,6 +228,7 @@ paths:
       tags: [user]
       summary: User login
       requestBody:
+        required: true
         description: User login details
         content:
           application/json:
@@ -242,6 +252,7 @@ paths:
       tags: [user]
       summary: User create
       requestBody:
+        required: true
         description: User create account
         content:
           application/json:
@@ -265,6 +276,7 @@ paths:
       tags: [user]
       summary: User reset password
       requestBody:
+        required: true
         description: User reset password
         content:
           application/json:
@@ -284,6 +296,7 @@ paths:
       tags: [user]
       summary: User generate reset token
       requestBody:
+        required: true
         description: User generate reset token
         content:
           application/json:
@@ -377,52 +390,86 @@ paths:
           $ref: "#/components/responses/ErrorInternal"
 
   #  Match endpoints
-  # /match:
-  #   get:
-  #     operationId: GetMatches
-  #     tags: [match]
-  #     summary: Get matches
-  #     responses:
-  #       "200":
-  #         description: "successful response"
-  #         content:
-  #           application/json:
-  #             $ref: ""
-  #       "401":
-  #         $ref: "#/components/responses/ErrorUnauthenticated"
-  #       "500":
-  #         $ref: "#/components/responses/ErrorInternal"
+  /match:
+    get:
+      operationId: GetMatches
+      tags: [match]
+      summary: Get matches
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                description: "Array of matches"
+                type: "object"
+                required: [matches]
+                properties:
+                  matches:
+                    type: "array"
+                    items:
+                      $ref: "#/components/schemas/MatchModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
 
-  #   post:
-  #     operationId: PostMatch
-  #     tags: [match]
-  #     summary: Create match
-  #     responses:
-  #       "200":
-  #         description: "successful response"
-  #         content:
-  #           application/json:
-  #             $ref: ""
-  #       "401":
-  #         $ref: "#/components/responses/ErrorUnauthenticated"
-  #       "500":
-  #         $ref: "#/components/responses/ErrorInternal"
+    post:
+      operationId: PostMatch
+      tags: [match]
+      summary: Create match
+      requestBody:
+        required: true
+        description: User challenge another user to a match
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [id]
+              properties:
+                id:
+                  type: number
+                  description: User ID that is being challenged
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
 
-  # /match/{matchID}:
-  #   patch:
-  #     operationId: PostMatch
-  #     tags: [match]
-  #     summary: Create match
-  #     responses:
-  #       "200":
-  #         description: "successful response"
-  #         content:
-  #           application/json:
-  #             $ref: ""
-  #       "401":
-  #         $ref: "#/components/responses/ErrorUnauthenticated"
-  #       "500":
-  #         $ref: "#/components/responses/ErrorInternal"
+  /match/{matchID}:
+    patch:
+      operationId: PatchMatch
+      tags: [match]
+      summary: Update match
+      parameters:
+        - in: path
+          schema: { type: string }
+          name: matchID
+          required: true
+          description: The match id to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MatchUpdateModel"
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
 
   #user event endpoints
   # /user-events/{userEventID}:
@@ -452,12 +499,18 @@ components:
     CreateEventModel:
       $ref: "schemas/event/create_event.yml"
 
+    PatchEventModel:
+      $ref: "schemas/event/patch_event.yml"
+
     ParticipantModel:
       $ref: "schemas/event/participant.yml"
 
     #users
     UserBaseModel:
       $ref: "schemas/user/user_base.yml"
+
+    UserPatchModel:
+      $ref: "schemas/user/user_patch.yml"
 
     UserWithoutPasswordModel:
       $ref: "schemas/user/user_without_password.yml"
@@ -474,6 +527,13 @@ components:
     #user events
     UserEventModel:
       $ref: "schemas/user_event/user_event.yml"
+
+    #match
+    MatchModel:
+      $ref: "schemas/match/match.yml"
+
+    MatchUpdateModel:
+      $ref: "schemas/match/match_update.yml"
 
     #Modifications e.g. arrays
 

@@ -10,16 +10,21 @@ export type { AdminGeneratePasswordResetModel } from './models/AdminGeneratePass
 export type { CreateEventModel } from './models/CreateEventModel';
 export type { EventModel } from './models/EventModel';
 export type { GetUserWithAuthTokenModel } from './models/GetUserWithAuthTokenModel';
+export type { MatchModel } from './models/MatchModel';
+export type { MatchUpdateModel } from './models/MatchUpdateModel';
 export type { ParticipantModel } from './models/ParticipantModel';
+export type { PatchEventModel } from './models/PatchEventModel';
 export type { UserBaseModel } from './models/UserBaseModel';
 export type { UserCreateModel } from './models/UserCreateModel';
 export type { UserEventModel } from './models/UserEventModel';
 export type { UserGeneratePasswordResetModel } from './models/UserGeneratePasswordResetModel';
 export type { UserLoginModel } from './models/UserLoginModel';
+export type { UserPatchModel } from './models/UserPatchModel';
 export type { UserResetPasswordModel } from './models/UserResetPasswordModel';
 export type { UserWithoutPasswordModel } from './models/UserWithoutPasswordModel';
 
 export { AdminService } from './services/AdminService';
 export { EventService } from './services/EventService';
+export { MatchService } from './services/MatchService';
 export { RankService } from './services/RankService';
 export { UserService } from './services/UserService';

@@ -1,0 +1,22 @@
+title: "CreateEventModel"
+type: object
+description: An event with event details
+properties:
+  name:
+    description: Name of event
+    type: string
+  spots:
+    description: Number of max spots open for event
+    type: number
+  start:
+    description: Start epoch of event
+    type: string
+  open:
+    description: Open epoch of event
+    type: string
+  enabled:
+    type: boolean
+    description: Event is enabled or disabled
+  price:
+    description: Price of event in cents
+    type: number

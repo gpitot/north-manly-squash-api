@@ -1,7 +1,9 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CreateEventModel } from '../models/CreateEventModel';
 import type { EventModel } from '../models/EventModel';
+import type { PatchEventModel } from '../models/PatchEventModel';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -34,15 +36,13 @@ export class EventService {
     public static postEvent({
         requestBody,
     }: {
-        /**
-         * An event with event details
-         */
-        requestBody?: any,
+        requestBody: CreateEventModel,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/event',
             body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 403: `Unauthorised access to specified resource`,
                 500: `An internal error occurred`,
@@ -88,10 +88,7 @@ export class EventService {
          * The event id to patch
          */
         id: string,
-        /**
-         * An event with event details
-         */
-        requestBody?: any,
+        requestBody: PatchEventModel,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PATCH',
@@ -100,6 +97,7 @@ export class EventService {
                 'id': id,
             },
             body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 403: `Unauthorised access to specified resource`,
                 500: `An internal error occurred`,

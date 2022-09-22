@@ -5,6 +5,7 @@ import type { GetUserWithAuthTokenModel } from '../models/GetUserWithAuthTokenMo
 import type { UserCreateModel } from '../models/UserCreateModel';
 import type { UserGeneratePasswordResetModel } from '../models/UserGeneratePasswordResetModel';
 import type { UserLoginModel } from '../models/UserLoginModel';
+import type { UserPatchModel } from '../models/UserPatchModel';
 import type { UserResetPasswordModel } from '../models/UserResetPasswordModel';
 import type { UserWithoutPasswordModel } from '../models/UserWithoutPasswordModel';
 
@@ -65,9 +66,9 @@ export class UserService {
         requestBody,
     }: {
         /**
-         * User login details
+         * User patch details
          */
-        requestBody?: UserWithoutPasswordModel,
+        requestBody: UserPatchModel,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'PATCH',
@@ -108,7 +109,7 @@ export class UserService {
         /**
          * User login details
          */
-        requestBody?: UserLoginModel,
+        requestBody: UserLoginModel,
     }): CancelablePromise<GetUserWithAuthTokenModel> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -133,7 +134,7 @@ export class UserService {
         /**
          * User create account
          */
-        requestBody?: UserCreateModel,
+        requestBody: UserCreateModel,
     }): CancelablePromise<GetUserWithAuthTokenModel> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -158,7 +159,7 @@ export class UserService {
         /**
          * User reset password
          */
-        requestBody?: UserResetPasswordModel,
+        requestBody: UserResetPasswordModel,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -183,7 +184,7 @@ export class UserService {
         /**
          * User generate reset token
          */
-        requestBody?: UserGeneratePasswordResetModel,
+        requestBody: UserGeneratePasswordResetModel,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
