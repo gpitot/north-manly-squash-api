@@ -6,6 +6,9 @@ properties:
   name:
     description: Name of event
     type: string
+  description:
+    description: Description of event
+    type: string
   spots:
     description: Number of max spots open for event
     type: number

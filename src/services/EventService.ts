@@ -106,7 +106,7 @@ export class EventService {
 
     /**
      * Post event by ID
-     * @returns void
+     * @returns EventModel successful response
      * @throws ApiError
      */
     public static postEventById({
@@ -116,7 +116,7 @@ export class EventService {
          * The event id to look up
          */
         id: string,
-    }): CancelablePromise<void> {
+    }): CancelablePromise<EventModel> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/event/{id}',

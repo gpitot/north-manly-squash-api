@@ -116,8 +116,12 @@ paths:
       summary: Post event by ID
       #ReqBody not needed, we only need userID (from token)
       responses:
-        "204":
+        "200":
           description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventModel"
         "403":
           $ref: "#/components/responses/ErrorUnauthorised"
         "500":

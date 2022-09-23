@@ -26,9 +26,5 @@ export type PatchEventModel = {
      * Event is enabled or disabled
      */
     enabled?: boolean;
-    /**
-     * Price of event in cents
-     */
-    price?: number;
 };
 

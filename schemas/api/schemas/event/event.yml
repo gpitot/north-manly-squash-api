@@ -24,7 +24,6 @@ properties:
   price:
     description: Price of event in cents
     type: number
-
   participants:
     description: List of participants
     type: array
