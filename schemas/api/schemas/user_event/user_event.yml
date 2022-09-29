@@ -1,10 +1,16 @@
 title: "UserEventModel"
 type: object
 description: User event model , ties user to the event
-required: [id, registered, paid, enabled]
+required: [id, user_id, event_id, registered, paid, enabled]
 properties:
   id:
     description: ID of user_event
+    type: number
+  user_id:
+    description: ID of user
+    type: number
+  event_id:
+    description: ID of event
     type: number
   registered:
     description: Epoch registered

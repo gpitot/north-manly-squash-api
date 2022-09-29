@@ -132,6 +132,8 @@ paths:
       operationId: GetUserMe
       tags: [user]
       summary: Get current user details
+      parameters:
+        - $ref: "#/components/parameters/Authorization"
       responses:
         "200":
           description: "successful response"
@@ -160,6 +162,8 @@ paths:
                 $ref: "#/components/schemas/UserWithoutPasswordModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
+        "403":
+          $ref: "#/components/responses/ErrorUnauthorised"
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
@@ -175,8 +179,12 @@ paths:
             schema:
               $ref: "#/components/schemas/UserPatchModel"
       responses:
-        "204":
+        "200":
           description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserWithoutPasswordModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
@@ -355,6 +363,27 @@ paths:
       operationId: GetMatches
       tags: [match]
       summary: Get matches
+      parameters:
+        - in: query
+          name: user_id
+          schema: { type: number }
+          description: User id
+          required: false
+        - in: query
+          name: state
+          description: State of match
+          required: true
+          schema:
+            $ref: "#/components/schemas/MatchState"
+        - in: query
+          name: limit
+          schema: { type: number }
+          description: Limit of results to return
+        - in: query
+          name: offset
+          schema: { type: number }
+          description: Offset of results to return
+
       responses:
         "200":
           description: "successful response"
@@ -383,6 +412,12 @@ paths:
                 id:
                   type: number
                   description: User ID that is being challenged
+                challenger_id:
+                  type: number
+                  description: User ID that is initiating challenge (admin only)
+                challenger_name:
+                  type: string
+                  description: User firstname that is initiating challenge (admin only)
       responses:
         "200":
           description: "successful response"
@@ -421,7 +456,7 @@ paths:
           $ref: "#/components/responses/ErrorInternal"
 
   #user event endpoints
-  /user-events/{id}:
+  /user-event/{id}:
     parameters:
       - $ref: "#/components/parameters/pathWithID"
     patch:
@@ -450,10 +485,16 @@ components:
   parameters:
     pathWithID:
       in: path
-      schema: { type: string }
+      schema: { type: number }
       name: id
       required: true
       description: The event id to look up
+    Authorization:
+      in: header
+      name: X-Squash-Authorization
+      schema:
+        type: string
+      required: true
 
   schemas:
     #Base schemas
@@ -501,6 +542,9 @@ components:
     MatchModel:
       $ref: "schemas/match/match.yml"
 
+    MatchWithUserDetailsModel:
+      $ref: "schemas/match/match.yml"
+
     MatchUpdateModel:
       $ref: "schemas/match/match_update.yml"
 
@@ -529,6 +573,7 @@ components:
     UserGeneratePasswordResetModel:
       description: User generate password reset via email
       type: object
+      required: [email]
       properties:
         email:
           description: User email address
@@ -537,6 +582,7 @@ components:
     AdminGeneratePasswordResetModel:
       description: Admin generate password reset token
       type: object
+      required: [token]
       properties:
         token:
           description: Reset token
@@ -570,7 +616,10 @@ components:
         matches:
           type: "array"
           items:
-            $ref: "#/components/schemas/MatchModel"
+            $ref: "#/components/schemas/MatchWithUserDetailsModel"
+
+    MatchState:
+      $ref: "schemas/enums.yml#/components/schemas/MatchState"
 
   responses:
     # API Gateway does not support response definitions here for '200' responses

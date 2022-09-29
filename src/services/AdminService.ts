@@ -21,7 +21,7 @@ export class AdminService {
         /**
          * The event id to look up
          */
-        id: string,
+        id: number,
     }): CancelablePromise<AdminGeneratePasswordResetModel> {
         return __request(OpenAPI, {
             method: 'POST',

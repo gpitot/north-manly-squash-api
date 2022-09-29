@@ -14,15 +14,9 @@ properties:
   phone:
     description: Phone of user
     type: string
-  role:
-    description: Role of user
-    type: string
   sporty_hq_url:
     description: SportyHQ URL
     type: string
-  sporty_hq_rating:
-    type: number
-    description: SportyHQ Rating
   sporty_hq_approved:
     type: boolean
     description: Is SportyHQ approved by an admin

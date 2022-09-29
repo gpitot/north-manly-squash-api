@@ -9,6 +9,6 @@ export type AdminGeneratePasswordResetModel = {
     /**
      * Reset token
      */
-    token?: string;
+    token: string;
 };
 

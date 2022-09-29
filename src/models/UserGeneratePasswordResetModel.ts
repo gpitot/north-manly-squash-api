@@ -9,6 +9,6 @@ export type UserGeneratePasswordResetModel = {
     /**
      * User email address
      */
-    email?: string;
+    email: string;
 };
 

@@ -20,10 +20,17 @@ export class UserService {
      * @returns UserWithoutPasswordModel successful response
      * @throws ApiError
      */
-    public static getUserMe(): CancelablePromise<UserWithoutPasswordModel> {
+    public static getUserMe({
+        xSquashAuthorization,
+    }: {
+        xSquashAuthorization: string,
+    }): CancelablePromise<UserWithoutPasswordModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/me',
+            headers: {
+                'X-Squash-Authorization': xSquashAuthorization,
+            },
             errors: {
                 401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
                 500: `An internal error occurred`,
@@ -42,7 +49,7 @@ export class UserService {
         /**
          * The event id to look up
          */
-        id: string,
+        id: number,
     }): CancelablePromise<UserWithoutPasswordModel> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -52,6 +59,7 @@ export class UserService {
             },
             errors: {
                 401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
+                403: `Unauthorised access to specified resource`,
                 500: `An internal error occurred`,
             },
         });
@@ -59,7 +67,7 @@ export class UserService {
 
     /**
      * Update user details
-     * @returns void
+     * @returns UserWithoutPasswordModel successful response
      * @throws ApiError
      */
     public static patchUser({
@@ -69,12 +77,12 @@ export class UserService {
         /**
          * The event id to look up
          */
-        id: string,
+        id: number,
         /**
          * User patch details
          */
         requestBody: UserPatchModel,
-    }): CancelablePromise<void> {
+    }): CancelablePromise<UserWithoutPasswordModel> {
         return __request(OpenAPI, {
             method: 'PATCH',
             url: '/user/{id}',

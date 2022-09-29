@@ -11,6 +11,14 @@ export type UserEventModel = {
      */
     id: number;
     /**
+     * ID of user
+     */
+    user_id: number;
+    /**
+     * ID of event
+     */
+    event_id: number;
+    /**
      * Epoch registered
      */
     registered: string;

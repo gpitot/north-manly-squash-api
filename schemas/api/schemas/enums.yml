@@ -1,0 +1,16 @@
+components:
+  schemas:
+    MatchState:
+      title: MatchState
+      type: string
+      description: State of match
+      enum: [
+          PENDING_USER, #before accept or decline
+          DECLINED,
+          ACCEPTED, # before matchdate is set
+          PENDING_PLAYING, #matchdate is now set
+          PENDING_RESULT, #after matchdate
+          PENDING_APPROVAL, #waiting for admin to approve
+          COMPLETED,
+          UNCOMPLETED,
+        ]

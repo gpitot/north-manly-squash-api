@@ -7,21 +7,9 @@
  */
 export type UserEventPatchModel = {
     /**
-     * ID of user_event
-     */
-    id?: number;
-    /**
-     * Epoch registered
-     */
-    registered?: string;
-    /**
      * User has paid or not
      */
     paid?: boolean;
-    /**
-     * Reciept copy
-     */
-    receipt?: string;
     /**
      * Is user still enrolled
      */

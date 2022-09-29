@@ -22,12 +22,12 @@ export class UserEventService {
         /**
          * The event id to look up
          */
-        id: string,
+        id: number,
         requestBody: UserEventPatchModel,
     }): CancelablePromise<UserEventModel> {
         return __request(OpenAPI, {
             method: 'PATCH',
-            url: '/user-events/{id}',
+            url: '/user-event/{id}',
             path: {
                 'id': id,
             },

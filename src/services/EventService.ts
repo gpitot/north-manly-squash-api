@@ -60,7 +60,7 @@ export class EventService {
         /**
          * The event id to look up
          */
-        id: string,
+        id: number,
     }): CancelablePromise<EventModel> {
         return __request(OpenAPI, {
             method: 'GET',
@@ -86,7 +86,7 @@ export class EventService {
         /**
          * The event id to look up
          */
-        id: string,
+        id: number,
         requestBody: PatchEventModel,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
@@ -115,7 +115,7 @@ export class EventService {
         /**
          * The event id to look up
          */
-        id: string,
+        id: number,
     }): CancelablePromise<EventModel> {
         return __request(OpenAPI, {
             method: 'POST',

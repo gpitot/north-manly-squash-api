@@ -11,6 +11,10 @@ export type PatchEventModel = {
      */
     name?: string;
     /**
+     * Description of event
+     */
+    description?: string;
+    /**
      * Number of max spots open for event
      */
     spots?: number;
