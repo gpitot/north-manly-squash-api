@@ -9,7 +9,7 @@ import type { UserEventModel } from './UserEventModel';
  * Participant model for events
  */
 export type ParticipantModel = {
-    user?: UserBaseModel;
-    user_event?: UserEventModel;
+    user: UserBaseModel;
+    user_event: UserEventModel;
 };
 

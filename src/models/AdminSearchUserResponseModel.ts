@@ -11,6 +11,6 @@ export type AdminSearchUserResponseModel = {
     /**
      * A list of users matching search
      */
-    users?: Array<UserWithoutPasswordModel>;
+    users: Array<UserWithoutPasswordModel>;
 };
 

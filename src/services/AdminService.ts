@@ -17,17 +17,22 @@ export class AdminService {
      */
     public static postAdminGenerateResetPassword({
         id,
+        xSquashAuth,
     }: {
         /**
          * The event id to look up
          */
         id: number,
+        xSquashAuth: string,
     }): CancelablePromise<AdminGeneratePasswordResetModel> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/admin/password/generate/{id}',
             path: {
                 'id': id,
+            },
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
             },
             errors: {
                 401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
@@ -43,16 +48,21 @@ export class AdminService {
      */
     public static adminSearchUser({
         query,
+        xSquashAuth,
     }: {
         /**
          * The search query
          */
         query: string,
+        xSquashAuth: string,
     }): CancelablePromise<AdminSearchUserResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/admin/search-user',
-            path: {
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
+            },
+            query: {
                 'query': query,
             },
             errors: {

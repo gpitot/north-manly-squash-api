@@ -52,6 +52,8 @@ paths:
       operationId: PostEvent
       tags: [event]
       summary: Create an event
+      parameters:
+        - $ref: "#/components/parameters/Authorization"
       requestBody:
         required: true
         content:
@@ -73,6 +75,7 @@ paths:
   /event/{id}:
     parameters:
       - $ref: "#/components/parameters/pathWithID"
+
     get:
       operationId: GetEventByID
       tags: [event]
@@ -91,6 +94,8 @@ paths:
       operationId: PatchEventByID
       tags: [event]
       summary: Patch event by ID
+      parameters:
+        - $ref: "#/components/parameters/Authorization"
       requestBody:
         required: true
         content:
@@ -114,7 +119,15 @@ paths:
       operationId: PostEventByID
       tags: [event]
       summary: Post event by ID
-      #ReqBody not needed, we only need userID (from token)
+      parameters:
+        - $ref: "#/components/parameters/Authorization"
+      requestBody:
+        description: Admin adds user to event
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PostUserEventModel"
+
       responses:
         "200":
           description: "successful response"
@@ -149,6 +162,7 @@ paths:
   /user/{id}:
     parameters:
       - $ref: "#/components/parameters/pathWithID"
+      - $ref: "#/components/parameters/Authorization"
     get:
       operationId: GetUserByID
       tags: [user]
@@ -195,6 +209,8 @@ paths:
       operationId: GetUserRefresh
       tags: [user]
       summary: Get current user details
+      parameters:
+        - $ref: "#/components/parameters/Authorization"
       responses:
         "200":
           description: "successful response"
@@ -298,6 +314,7 @@ paths:
   /admin/password/generate/{id}:
     parameters:
       - $ref: "#/components/parameters/pathWithID"
+      - $ref: "#/components/parameters/Authorization"
     post:
       operationId: PostAdminGenerateResetPassword
       tags: [admin]
@@ -320,11 +337,12 @@ paths:
       tags: [admin]
       summary: Admin search for users
       parameters:
-        - in: path
+        - in: query
           schema: { type: string }
           name: query
           required: true
           description: The search query
+        - $ref: "#/components/parameters/Authorization"
       responses:
         "200":
           description: "successful response"
@@ -400,24 +418,16 @@ paths:
       operationId: PostMatch
       tags: [match]
       summary: Create match
+      parameters:
+        - $ref: "#/components/parameters/Authorization"
       requestBody:
         required: true
         description: User challenge another user to a match
         content:
           application/json:
             schema:
-              type: object
-              required: [id]
-              properties:
-                id:
-                  type: number
-                  description: User ID that is being challenged
-                challenger_id:
-                  type: number
-                  description: User ID that is initiating challenge (admin only)
-                challenger_name:
-                  type: string
-                  description: User firstname that is initiating challenge (admin only)
+              $ref: "#/components/schemas/MatchCreateModel"
+
       responses:
         "200":
           description: "successful response"
@@ -433,6 +443,7 @@ paths:
   /match/{id}:
     parameters:
       - $ref: "#/components/parameters/pathWithID"
+      - $ref: "#/components/parameters/Authorization"
     patch:
       operationId: PatchMatch
       tags: [match]
@@ -459,9 +470,10 @@ paths:
   /user-event/{id}:
     parameters:
       - $ref: "#/components/parameters/pathWithID"
+      - $ref: "#/components/parameters/Authorization"
     patch:
-      operationId: PostUserEvent
-      tags: [user_event]
+      operationId: PatchUserEvent
+      tags: [event]
       summary: Patch user event
       requestBody:
         required: true
@@ -491,7 +503,7 @@ components:
       description: The event id to look up
     Authorization:
       in: header
-      name: X-Squash-Authorization
+      name: X-Squash-Auth
       schema:
         type: string
       required: true
@@ -511,6 +523,10 @@ components:
 
     ParticipantModel:
       $ref: "schemas/event/participant.yml"
+
+    # admin add user to event
+    PostUserEventModel:
+      $ref: "schemas/user_event/post_user_event.yml"
 
     #users
     UserBaseModel:
@@ -543,10 +559,13 @@ components:
       $ref: "schemas/match/match.yml"
 
     MatchWithUserDetailsModel:
-      $ref: "schemas/match/match.yml"
+      $ref: "schemas/match/match_with_user.yml"
 
     MatchUpdateModel:
       $ref: "schemas/match/match_update.yml"
+
+    MatchCreateModel:
+      $ref: "schemas/match/create_match.yml"
 
     #Modifications e.g. arrays
 
@@ -563,6 +582,7 @@ components:
     GetUserWithAuthTokenModel:
       description: "UserRefresh"
       type: "object"
+      required: [accessToken, user]
       properties:
         accessToken:
           description: Authentication token
@@ -591,6 +611,7 @@ components:
     AdminSearchUserResponseModel:
       description: Admin search user model
       type: object
+      required: [users]
       properties:
         users:
           description: A list of users matching search

@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { MatchCreateModel } from '../models/MatchCreateModel';
 import type { MatchGetResponseModel } from '../models/MatchGetResponseModel';
 import type { MatchModel } from '../models/MatchModel';
 import type { MatchState } from '../models/MatchState';
@@ -62,29 +63,21 @@ export class MatchService {
      * @throws ApiError
      */
     public static postMatch({
+        xSquashAuth,
         requestBody,
     }: {
+        xSquashAuth: string,
         /**
          * User challenge another user to a match
          */
-        requestBody: {
-            /**
-             * User ID that is being challenged
-             */
-            id: number;
-            /**
-             * User ID that is initiating challenge (admin only)
-             */
-            challenger_id?: number;
-            /**
-             * User firstname that is initiating challenge (admin only)
-             */
-            challenger_name?: string;
-        },
+        requestBody: MatchCreateModel,
     }): CancelablePromise<MatchModel> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/match',
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
+            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -101,12 +94,14 @@ export class MatchService {
      */
     public static patchMatch({
         id,
+        xSquashAuth,
         requestBody,
     }: {
         /**
          * The event id to look up
          */
         id: number,
+        xSquashAuth: string,
         requestBody: MatchUpdateModel,
     }): CancelablePromise<MatchModel> {
         return __request(OpenAPI, {
@@ -114,6 +109,9 @@ export class MatchService {
             url: '/match/{id}',
             path: {
                 'id': id,
+            },
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
             },
             body: requestBody,
             mediaType: 'application/json',

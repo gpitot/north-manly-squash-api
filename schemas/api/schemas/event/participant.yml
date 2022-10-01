@@ -1,7 +1,7 @@
 title: "ParticipantModel"
 type: object
 description: Participant model for events
-required: [id, name, description, spots, start, open, enabled, price]
+required: [user, user_event]
 properties:
   user:
     $ref: "../../api.yml#/components/schemas/UserBaseModel"

@@ -5,6 +5,9 @@ import type { CreateEventModel } from '../models/CreateEventModel';
 import type { EventModel } from '../models/EventModel';
 import type { GetEventsResponseModel } from '../models/GetEventsResponseModel';
 import type { PatchEventModel } from '../models/PatchEventModel';
+import type { PostUserEventModel } from '../models/PostUserEventModel';
+import type { UserEventModel } from '../models/UserEventModel';
+import type { UserEventPatchModel } from '../models/UserEventPatchModel';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -33,13 +36,18 @@ export class EventService {
      * @throws ApiError
      */
     public static postEvent({
+        xSquashAuth,
         requestBody,
     }: {
+        xSquashAuth: string,
         requestBody: CreateEventModel,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/event',
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
+            },
             body: requestBody,
             mediaType: 'application/json',
             errors: {
@@ -81,12 +89,14 @@ export class EventService {
      */
     public static patchEventById({
         id,
+        xSquashAuth,
         requestBody,
     }: {
         /**
          * The event id to look up
          */
         id: number,
+        xSquashAuth: string,
         requestBody: PatchEventModel,
     }): CancelablePromise<void> {
         return __request(OpenAPI, {
@@ -94,6 +104,9 @@ export class EventService {
             url: '/event/{id}',
             path: {
                 'id': id,
+            },
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -111,11 +124,18 @@ export class EventService {
      */
     public static postEventById({
         id,
+        xSquashAuth,
+        requestBody,
     }: {
         /**
          * The event id to look up
          */
         id: number,
+        xSquashAuth: string,
+        /**
+         * Admin adds user to event
+         */
+        requestBody?: PostUserEventModel,
     }): CancelablePromise<EventModel> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -123,8 +143,48 @@ export class EventService {
             path: {
                 'id': id,
             },
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
             errors: {
                 403: `Unauthorised access to specified resource`,
+                500: `An internal error occurred`,
+            },
+        });
+    }
+
+    /**
+     * Patch user event
+     * @returns UserEventModel successful response
+     * @throws ApiError
+     */
+    public static patchUserEvent({
+        id,
+        xSquashAuth,
+        requestBody,
+    }: {
+        /**
+         * The event id to look up
+         */
+        id: number,
+        xSquashAuth: string,
+        requestBody: UserEventPatchModel,
+    }): CancelablePromise<UserEventModel> {
+        return __request(OpenAPI, {
+            method: 'PATCH',
+            url: '/user-event/{id}',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
+            },
+            body: requestBody,
+            mediaType: 'application/json',
+            errors: {
+                401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
                 500: `An internal error occurred`,
             },
         });

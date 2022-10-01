@@ -1,0 +1,14 @@
+title: "CreateMatchModel"
+type: object
+description: Details required to create an event
+required: [id]
+properties:
+  id:
+    type: number
+    description: User ID that is being challenged
+  challenger_id:
+    type: number
+    description: User ID that is initiating challenge (admin only)
+  challenger_name:
+    type: string
+    description: User firstname that is initiating challenge (admin only)

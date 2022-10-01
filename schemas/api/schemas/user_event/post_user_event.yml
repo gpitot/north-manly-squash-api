@@ -1,0 +1,7 @@
+title: "UserEventPostModel"
+type: object
+description: User event post model , adds user to an event (admin only)
+properties:
+  id:
+    type: number
+    description: User ID that is being added to event (admin only)

@@ -21,15 +21,15 @@ export class UserService {
      * @throws ApiError
      */
     public static getUserMe({
-        xSquashAuthorization,
+        xSquashAuth,
     }: {
-        xSquashAuthorization: string,
+        xSquashAuth: string,
     }): CancelablePromise<UserWithoutPasswordModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/me',
             headers: {
-                'X-Squash-Authorization': xSquashAuthorization,
+                'X-Squash-Auth': xSquashAuth,
             },
             errors: {
                 401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
@@ -45,17 +45,22 @@ export class UserService {
      */
     public static getUserById({
         id,
+        xSquashAuth,
     }: {
         /**
          * The event id to look up
          */
         id: number,
+        xSquashAuth: string,
     }): CancelablePromise<UserWithoutPasswordModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/{id}',
             path: {
                 'id': id,
+            },
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
             },
             errors: {
                 401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
@@ -72,12 +77,14 @@ export class UserService {
      */
     public static patchUser({
         id,
+        xSquashAuth,
         requestBody,
     }: {
         /**
          * The event id to look up
          */
         id: number,
+        xSquashAuth: string,
         /**
          * User patch details
          */
@@ -88,6 +95,9 @@ export class UserService {
             url: '/user/{id}',
             path: {
                 'id': id,
+            },
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -103,10 +113,17 @@ export class UserService {
      * @returns GetUserWithAuthTokenModel successful response
      * @throws ApiError
      */
-    public static getUserRefresh(): CancelablePromise<GetUserWithAuthTokenModel> {
+    public static getUserRefresh({
+        xSquashAuth,
+    }: {
+        xSquashAuth: string,
+    }): CancelablePromise<GetUserWithAuthTokenModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/refresh',
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
+            },
             errors: {
                 401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
                 500: `An internal error occurred`,

@@ -2,12 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import type { MatchModel } from './MatchModel';
+import type { MatchWithUserDetailsModel } from './MatchWithUserDetailsModel';
 
 /**
  * Array of matches
  */
 export type MatchGetResponseModel = {
-    matches: Array<MatchModel>;
+    matches: Array<MatchWithUserDetailsModel>;
 };
 

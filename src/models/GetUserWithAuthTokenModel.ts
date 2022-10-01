@@ -11,7 +11,7 @@ export type GetUserWithAuthTokenModel = {
     /**
      * Authentication token
      */
-    accessToken?: string;
-    user?: UserWithoutPasswordModel;
+    accessToken: string;
+    user: UserWithoutPasswordModel;
 };
 
