@@ -26,5 +26,9 @@ export type UserCreateModel = {
      * Password of user
      */
     password: string;
+    /**
+     * Source of user
+     */
+    source?: string;
 };
 

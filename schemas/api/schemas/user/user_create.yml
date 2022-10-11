@@ -18,3 +18,6 @@ properties:
   password:
     description: Password of user
     type: string
+  source:
+    description: Source of user
+    type: string

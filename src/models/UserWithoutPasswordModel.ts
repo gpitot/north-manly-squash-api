@@ -42,5 +42,9 @@ export type UserWithoutPasswordModel = {
      * Is SportyHQ approved by an admin
      */
     sporty_hq_approved: boolean;
+    /**
+     * Source of user
+     */
+    source?: string;
 };
 
