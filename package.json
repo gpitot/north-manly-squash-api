@@ -1,6 +1,6 @@
 {
   "name": "north-manly-squash-api",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/north-manly-squash-api.cjs.js",
   "module": "dist/north-manly-squash-api.esm.js",
