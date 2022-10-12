@@ -38,6 +38,25 @@ paths:
       operationId: GetEvents
       tags: [event]
       summary: Get all open events with users
+      parameters:
+        - in: query
+          name: startEpoch
+          schema: { type: number }
+          description: Start epoch of events to search for
+          required: false
+        - in: query
+          name: endEpoch
+          schema: { type: number }
+          description: End epoch of events to search for
+          required: false
+        - in: query
+          name: limit
+          schema: { type: number }
+          description: Limit of results to return
+        - in: query
+          name: offset
+          schema: { type: number }
+          description: Offset of results to return
       responses:
         "200":
           description: "successful response"

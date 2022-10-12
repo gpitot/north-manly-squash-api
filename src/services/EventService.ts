@@ -20,10 +20,38 @@ export class EventService {
      * @returns GetEventsResponseModel successful response
      * @throws ApiError
      */
-    public static getEvents(): CancelablePromise<GetEventsResponseModel> {
+    public static getEvents({
+        startEpoch,
+        endEpoch,
+        limit,
+        offset,
+    }: {
+        /**
+         * Start epoch of events to search for
+         */
+        startEpoch?: number,
+        /**
+         * End epoch of events to search for
+         */
+        endEpoch?: number,
+        /**
+         * Limit of results to return
+         */
+        limit?: number,
+        /**
+         * Offset of results to return
+         */
+        offset?: number,
+    }): CancelablePromise<GetEventsResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/event',
+            query: {
+                'startEpoch': startEpoch,
+                'endEpoch': endEpoch,
+                'limit': limit,
+                'offset': offset,
+            },
             errors: {
                 500: `An internal error occurred`,
             },
