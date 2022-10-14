@@ -21,11 +21,16 @@ export class EventService {
      * @throws ApiError
      */
     public static getEvents({
+        eventQueryFilter,
         startEpoch,
         endEpoch,
         limit,
         offset,
     }: {
+        /**
+         * Filter events by query
+         */
+        eventQueryFilter?: string,
         /**
          * Start epoch of events to search for
          */
@@ -47,6 +52,7 @@ export class EventService {
             method: 'GET',
             url: '/event',
             query: {
+                'eventQueryFilter': eventQueryFilter,
                 'startEpoch': startEpoch,
                 'endEpoch': endEpoch,
                 'limit': limit,

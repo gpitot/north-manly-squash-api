@@ -40,6 +40,11 @@ paths:
       summary: Get all open events with users
       parameters:
         - in: query
+          name: eventQueryFilter
+          schema: { type: string }
+          description: Filter events by query
+          required: false
+        - in: query
           name: startEpoch
           schema: { type: number }
           description: Start epoch of events to search for
