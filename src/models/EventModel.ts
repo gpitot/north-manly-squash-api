@@ -21,6 +21,10 @@ export type EventModel = {
      */
     description: string;
     /**
+     * Type of event
+     */
+    type: 'DEFAULT' | 'SOCIAL_BEGINNER' | 'SOCIAL_INTERMEDIATE' | 'SOCIAL_ADVANCED' | 'TOURNAMENT_TIMED' | 'TOURNAMENT_WEEKEND' | 'PENNANT';
+    /**
      * Number of max spots open for event
      */
     spots: number;

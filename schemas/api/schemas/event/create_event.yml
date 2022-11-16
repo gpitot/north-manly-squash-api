@@ -1,7 +1,7 @@
 title: "CreateEventModel"
 type: object
 description: An event with event details
-required: [name, description, spots, start, open, enabled, price]
+required: [name, description, spots, start, open, enabled, price, type]
 properties:
   name:
     description: Name of event
@@ -9,6 +9,17 @@ properties:
   description:
     description: Description of event
     type: string
+  type:
+    description: Type of event
+    type: string
+    enum:
+      - DEFAULT
+      - SOCIAL_BEGINNER
+      - SOCIAL_INTERMEDIATE
+      - SOCIAL_ADVANCED
+      - TOURNAMENT_TIMED
+      - TOURNAMENT_WEEKEND
+      - PENNANT
   spots:
     description: Number of max spots open for event
     type: number
