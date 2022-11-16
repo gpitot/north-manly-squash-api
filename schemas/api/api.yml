@@ -40,9 +40,19 @@ paths:
       summary: Get all open events with users
       parameters:
         - in: query
-          name: eventQueryFilter
-          schema: { type: string }
-          description: Filter events by query
+          name: eventType
+          description: Type of event
+          schema:
+            type: string
+            enum:
+              - DEFAULT
+              - SOCIAL_BEGINNER
+              - SOCIAL_INTERMEDIATE
+              - SOCIAL_ADVANCED
+              - TOURNAMENT_TIMED
+              - TOURNAMENT_WEEKEND
+              - PENNANT
+            description: Filter events by type
           required: false
         - in: query
           name: startEpoch
