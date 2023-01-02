@@ -238,6 +238,28 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
+  /user/{id}/events:
+    parameters:
+      - $ref: "#/components/parameters/pathWithID"
+      - $ref: "#/components/parameters/Authorization"
+    get:
+      operationId: GetUserPastEvents
+      tags: [user]
+      summary: Get users past events
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EventModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "403":
+          $ref: "#/components/responses/ErrorUnauthorised"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
   /user/refresh:
     get:
       operationId: GetUserRefresh

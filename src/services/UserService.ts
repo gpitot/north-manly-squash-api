@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { EventModel } from '../models/EventModel';
 import type { GetUserWithAuthTokenModel } from '../models/GetUserWithAuthTokenModel';
 import type { UserCreateModel } from '../models/UserCreateModel';
 import type { UserGeneratePasswordResetModel } from '../models/UserGeneratePasswordResetModel';
@@ -103,6 +104,38 @@ export class UserService {
             mediaType: 'application/json',
             errors: {
                 401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
+                500: `An internal error occurred`,
+            },
+        });
+    }
+
+    /**
+     * Get users past events
+     * @returns EventModel successful response
+     * @throws ApiError
+     */
+    public static getUserPastEvents({
+        id,
+        xSquashAuth,
+    }: {
+        /**
+         * The event id to look up
+         */
+        id: number,
+        xSquashAuth: string,
+    }): CancelablePromise<EventModel> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/user/{id}/events',
+            path: {
+                'id': id,
+            },
+            headers: {
+                'X-Squash-Auth': xSquashAuth,
+            },
+            errors: {
+                401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
+                403: `Unauthorised access to specified resource`,
                 500: `An internal error occurred`,
             },
         });
