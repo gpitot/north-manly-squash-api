@@ -252,7 +252,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/EventModel"
+                $ref: "#/components/schemas/GetEventsResponseModel"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "403":

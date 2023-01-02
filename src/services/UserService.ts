@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { EventModel } from '../models/EventModel';
+import type { GetEventsResponseModel } from '../models/GetEventsResponseModel';
 import type { GetUserWithAuthTokenModel } from '../models/GetUserWithAuthTokenModel';
 import type { UserCreateModel } from '../models/UserCreateModel';
 import type { UserGeneratePasswordResetModel } from '../models/UserGeneratePasswordResetModel';
@@ -111,7 +111,7 @@ export class UserService {
 
     /**
      * Get users past events
-     * @returns EventModel successful response
+     * @returns GetEventsResponseModel successful response
      * @throws ApiError
      */
     public static getUserPastEvents({
@@ -123,7 +123,7 @@ export class UserService {
          */
         id: number,
         xSquashAuth: string,
-    }): CancelablePromise<EventModel> {
+    }): CancelablePromise<GetEventsResponseModel> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/user/{id}/events',
