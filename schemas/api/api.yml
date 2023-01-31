@@ -52,6 +52,7 @@ paths:
               - TOURNAMENT_TIMED
               - TOURNAMENT_WEEKEND
               - PENNANT
+              - PURCHASE
             description: Filter events by type
           required: false
         - in: query

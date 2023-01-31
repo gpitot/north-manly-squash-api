@@ -30,7 +30,7 @@ export class EventService {
         /**
          * Type of event
          */
-        eventType?: 'DEFAULT' | 'SOCIAL_BEGINNER' | 'SOCIAL_INTERMEDIATE' | 'SOCIAL_ADVANCED' | 'TOURNAMENT_TIMED' | 'TOURNAMENT_WEEKEND' | 'PENNANT',
+        eventType?: 'DEFAULT' | 'SOCIAL_BEGINNER' | 'SOCIAL_INTERMEDIATE' | 'SOCIAL_ADVANCED' | 'TOURNAMENT_TIMED' | 'TOURNAMENT_WEEKEND' | 'PENNANT' | 'PURCHASE',
         /**
          * Start epoch of events to search for
          */

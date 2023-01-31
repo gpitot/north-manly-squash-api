@@ -1,6 +1,6 @@
 {
   "name": "north-manly-squash-api",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "dist/north-manly-squash-api.cjs.js",
   "module": "dist/north-manly-squash-api.esm.js",
@@ -11,6 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "cd schemas/api && openapi -c fetch --output ../../src -i api.yml --useOptions --useUnionTypes",
+    "minify": "esbuild src/index.ts --bundle --outdir=minify",
     "build": "npm run compile && preconstruct build"
   },
   "author": "Guillaume Pitot",

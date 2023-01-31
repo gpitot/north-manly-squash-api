@@ -19,6 +19,7 @@ properties:
       - TOURNAMENT_TIMED
       - TOURNAMENT_WEEKEND
       - PENNANT
+      - PURCHASE
   spots:
     description: Number of max spots open for event
     type: number
