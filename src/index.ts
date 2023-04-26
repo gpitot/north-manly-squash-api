@@ -33,6 +33,7 @@ export type { UserResetPasswordModel } from './models/UserResetPasswordModel';
 export type { UserWithoutPasswordModel } from './models/UserWithoutPasswordModel';
 
 export { AdminService } from './services/AdminService';
+export { AiService } from './services/AiService';
 export { EventService } from './services/EventService';
 export { MatchService } from './services/MatchService';
 export { RankService } from './services/RankService';

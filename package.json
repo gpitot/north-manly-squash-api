@@ -1,6 +1,6 @@
 {
   "name": "north-manly-squash-api",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "description": "",
   "main": "dist/north-manly-squash-api.cjs.js",
   "module": "dist/north-manly-squash-api.esm.js",
@@ -25,6 +25,7 @@
     "@babel/preset-env": "^7.19.1",
     "@babel/preset-typescript": "^7.18.6",
     "@preconstruct/cli": "^2.2.1",
+    "babel-preset-minify": "^0.5.2",
     "openapi-typescript-codegen": "^0.23.0",
     "typescript": "^4.8.3"
   }

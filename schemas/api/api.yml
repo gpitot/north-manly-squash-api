@@ -32,6 +32,10 @@ tags:
     description: |
       The series of APIs for matches
 
+  - name: ai
+    description: |
+      The series of APIs for AI
+
 paths:
   /event:
     get:
@@ -545,6 +549,30 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserEventModel"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
+  /ai/email:
+    parameters:
+      - $ref: "#/components/parameters/Authorization"
+    get:
+      operationId: GetEmail
+      tags: [ai]
+      summary: Get email
+      responses:
+        "200":
+          description: "successful response"
+          content:
+            application/json:
+              schema:
+                description: "Array of matches"
+                type: "object"
+                required: [message]
+                properties:
+                  message:
+                    type: "string"
         "401":
           $ref: "#/components/responses/ErrorUnauthenticated"
         "500":
