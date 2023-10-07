@@ -39,4 +39,30 @@ export class BookingService {
         });
     }
 
+    /**
+     * Confirm a booking request
+     * @returns any successful response
+     * @throws ApiError
+     */
+    public static postBookingConfirm({
+        id,
+    }: {
+        /**
+         * The external id
+         */
+        id: string,
+    }): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'POST',
+            url: '/bookings/confirm/{id}',
+            path: {
+                'id': id,
+            },
+            errors: {
+                401: `Unauthenticated access to the specified resource. Check that the credentials are correct, have been presented correctly, are suitable for the specified endpoint, and have not expired or been revoked`,
+                500: `An internal error occurred`,
+            },
+        });
+    }
+
 }

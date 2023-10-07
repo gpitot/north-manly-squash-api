@@ -600,6 +600,21 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
+  /bookings/confirm/{id}:
+    post:
+      operationId: PostBookingConfirm
+      tags: [booking]
+      summary: Confirm a booking request
+      parameters:
+        - $ref: "#/components/parameters/pathWithExternalID"
+      responses:
+        "200":
+          description: "successful response"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
 components:
   parameters:
     pathWithID:
@@ -608,6 +623,12 @@ components:
       name: id
       required: true
       description: The event id to look up
+    pathWithExternalID:
+      in: path
+      schema: { type: string }
+      name: id
+      required: true
+      description: The external id
     Authorization:
       in: header
       name: X-Squash-Auth
