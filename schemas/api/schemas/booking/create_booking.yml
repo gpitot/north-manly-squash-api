@@ -1,0 +1,8 @@
+title: "CreateBookingModel"
+type: object
+description: Details required to create a booking
+required: [epoch]
+properties:
+  epoch:
+    type: number
+    description: Epoch of booking

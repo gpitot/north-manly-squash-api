@@ -578,6 +578,28 @@ paths:
         "500":
           $ref: "#/components/responses/ErrorInternal"
 
+  /bookings/create:
+    post:
+      operationId: PostBooking
+      tags: [booking]
+      summary: Create a booking request
+      parameters:
+        - $ref: "#/components/parameters/Authorization"
+      requestBody:
+        required: true
+        description: Details about booking
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingCreateModel"
+      responses:
+        "200":
+          description: "successful response"
+        "401":
+          $ref: "#/components/responses/ErrorUnauthenticated"
+        "500":
+          $ref: "#/components/responses/ErrorInternal"
+
 components:
   parameters:
     pathWithID:
@@ -651,6 +673,9 @@ components:
 
     MatchCreateModel:
       $ref: "schemas/match/create_match.yml"
+
+    BookingCreateModel:
+      $ref: "schemas/booking/create_booking.yml"
 
     #Modifications e.g. arrays
 

@@ -69,9 +69,3 @@ responses:
       application/json:
         schema:
           $ref: "#/schemas/ErrorResponseModel"
-  ErrorHIP:
-    description: "Surface HIP Error message to client"
-    content:
-      application/json:
-        schema:
-          $ref: "#/schemas/ErrorResponseModel"

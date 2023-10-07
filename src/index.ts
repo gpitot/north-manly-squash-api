@@ -8,6 +8,7 @@ export type { OpenAPIConfig } from './core/OpenAPI';
 
 export type { AdminGeneratePasswordResetModel } from './models/AdminGeneratePasswordResetModel';
 export type { AdminSearchUserResponseModel } from './models/AdminSearchUserResponseModel';
+export type { BookingCreateModel } from './models/BookingCreateModel';
 export type { CreateEventModel } from './models/CreateEventModel';
 export type { EventModel } from './models/EventModel';
 export type { GetEventsResponseModel } from './models/GetEventsResponseModel';
@@ -34,6 +35,7 @@ export type { UserWithoutPasswordModel } from './models/UserWithoutPasswordModel
 
 export { AdminService } from './services/AdminService';
 export { AiService } from './services/AiService';
+export { BookingService } from './services/BookingService';
 export { EventService } from './services/EventService';
 export { MatchService } from './services/MatchService';
 export { RankService } from './services/RankService';
